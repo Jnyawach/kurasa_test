@@ -2,3 +2,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.creative-input{
+    @apply w-full text-sm my-2 rounded-lg  border-gray-200  bg-white border  text-gray-900 focus:border-sky-700  outline-0  h-10 p-2
+}
+
+.creative-text-input{
+    @apply w-full text-sm my-2 rounded-lg border  border-gray-200 bg-white   text-gray-900 focus:border-sky-700 outline-0   p-2
+}
+.creative-label{
+    @apply  text-sm font-semibold text-gray-900 placeholder:text-sm font-medium
+}
+
+.btn-primary{
+    @apply   bg-sky-700 text-sm text-white border border-sky-700 rounded-lg py-2  px-8 hover:bg-sky-900
+}
+
+.creative-error{
+    @apply mt-3 text-red-800 text-xs
+}

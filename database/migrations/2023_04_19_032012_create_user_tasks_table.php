@@ -11,17 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('task_user', function (Blueprint $table) {
+        Schema::create('user_tasks', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('task_id');
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->bigInteger('task_id')->unsigned()->index();
             $table->timestamp('due_date');
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
-            $table->string('remarks',100);
+            $table->string('remarks',100)->nullable();
             $table->integer('status_id');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')
+                ->on('users')->cascadeOnDelete();
+            $table->foreign('task_id')->references('id')
+                ->on('tasks')->cascadeOnDelete();
         });
     }
 
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('task_user');
+        Schema::dropIfExists('user_tasks');
     }
 };
