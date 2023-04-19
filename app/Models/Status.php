@@ -11,4 +11,8 @@ class Status extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable=['name'];
+
+    public function userTasks(){
+        return $this->hasMany(UserTask::class);
+    }
 }

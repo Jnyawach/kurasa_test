@@ -31,7 +31,7 @@
                     </header>
 
                     <div class="p-5 ">
-                      <form @submit.prevent="form.post('tasks')">
+                      <form @submit.prevent="submit">
                           <div class="grid my-3 grid-cols-6 gap-2">
                               <div class="col-span-4">
                                   <label class="creative-label" for="task_name">Task name:</label>
@@ -118,6 +118,16 @@ onMounted(()=>{
         })
         .catch((error: any) => console.log(error))
 })
+
+//submit task
+const submit=()=>{
+    form.post('tasks',{
+        onSuccess:()=>{
+            form.reset()
+            emits('close')
+        }
+    })
+}
 </script>
 
 <style scoped>

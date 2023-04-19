@@ -19,8 +19,9 @@ class TaskResource extends JsonResource
             'name'=>$this->name,
             'description'=>$this->description,
             'due_date'=>$this->due_date,
-            'user_task'=>UserTaskResource::collection($this->whenLoaded('tasks')),
-            'status'=>$this->status
+            'user_task'=>UserTaskResource::collection($this->whenLoaded('task')),
+            'status'=>$this->status,
+            'sub_task'=>$this->tasks()->count()
         ];
     }
 }

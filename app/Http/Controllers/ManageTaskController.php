@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskCreateRequest;
+use App\Http\Resources\TaskResource;
+use App\Http\Resources\UserTaskResource;
+use App\Models\Status;
 use App\Models\Task;
+use App\Models\UserTask;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ManageTaskController extends Controller
 {
@@ -46,7 +51,8 @@ class ManageTaskController extends Controller
             $task->tasks()->create([
                 'user_id'=>$request->team_member,
                 'due_date'=>Carbon::parse($request->due_date),
-                'status_id'=>2
+                'status_id'=>2,
+                'start_time'=>Carbon::now()
             ]);
             $task->update([
                 'status'=>2
@@ -65,6 +71,21 @@ class ManageTaskController extends Controller
     public function show(string $id)
     {
         //
+        $search=request('search');
+
+        $task=new TaskResource(Task::findOrFail($id));
+        $sub_tasks=UserTaskResource::collection(UserTask::query()
+
+            ->when(request('status'), function ($query, $status){
+                $query->where('status_id', $status);
+            })
+            ->with(['user'=>function($query) use($search){
+                $query->where('name', 'like', "%{$search}%");
+            }])
+            ->where('task_id',$id)->paginate(request('showing')));
+        $filters=request()->only(['search','showing','status','due_date']);
+        $statuses=Status::select('name','id')->get();
+        return inertia::render('sub-tasks', compact('task', 'sub_tasks','statuses','filters'));
     }
 
     /**
@@ -89,5 +110,39 @@ class ManageTaskController extends Controller
     public function destroy(string $id)
     {
         //
+        $task=Task::findOrFail($id);
+
+        $task->forceDelete();
+        return redirect()->back()
+            ->with('status','Tasks successfully deleted');
     }
+
+    public function cancelTask($id){
+        $task=Task::findOrFail($id);
+        $task->update([
+            'status_id'=>4
+        ]);
+        return redirect()->back()
+            ->with('status','The task has been cancelled');
+    }
+
+    public function completeTask($id){
+
+        $task=Task::findOrFail($id);
+        $task->update([
+            'status_id'=>3
+        ]);
+        return redirect()->back()
+            ->with('status','The task has been marked complete');
+    }
+
+    public function trashTask($id){
+
+        $task=Task::findOrFail($id);
+        $task->delete();
+        return redirect()->back()
+            ->with('status','The task has been marked complete');
+    }
+
+
 }
