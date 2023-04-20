@@ -1,5 +1,5 @@
 <template>
-<div class="relative">
+<div class="relative" v-on-click-outside="closeDrop">
     <div @click="show=!show">
         <slot name="header" >
             <button>Action</button>
@@ -12,10 +12,13 @@
 </template>
 
 <script setup lang="ts">
-
+import { vOnClickOutside } from '@vueuse/components'
 import {ref} from "vue";
 
 const show=ref(false)
+const closeDrop = () => {
+  show.value=false
+}
 </script>
 
 <style scoped>

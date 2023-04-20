@@ -16,6 +16,8 @@
         "@inertiajs/vue3": "^1.0.3",
         "@jridgewell/sourcemap-codec": "^1.4.15",
         "@vitejs/plugin-vue": "^4.1.0",
+        "@vueuse/components": "^10.0.2",
+        "@vueuse/core": "^10.0.2",
         "lodash": "^4.17.21",
         "moment": "^2.29.4",
         "vue": "^3.2.36"

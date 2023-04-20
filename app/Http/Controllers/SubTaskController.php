@@ -96,11 +96,15 @@ class SubTaskController extends Controller
             ->with('status','The sub-task has been cancelled');
     }
 
-    public function completeTask($id){
-
+    public function completeTask(Request $request,$id){
+        $validated=$request->validate([
+            'remarks'=>'string|max:255|required'
+        ]);
         $task=UserTask::findOrFail($id);
         $task->update([
-            'status_id'=>3
+            'status_id'=>3,
+            'remarks'=>$validated['remarks'],
+            'end_time'=>Carbon::now()
         ]);
         return redirect()->back()
             ->with('status','The sub-task has been marked complete');

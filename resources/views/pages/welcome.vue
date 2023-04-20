@@ -62,7 +62,7 @@
                             Due Date
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Sub-Tasks
+                            User Tasks
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Details
@@ -72,7 +72,7 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="[&>*:nth-child(even)]:bg-gray-100">
                     <tr :key="task.id" v-for="task in tasks.data" class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
@@ -106,7 +106,7 @@
                                     <ul class="divide-y bg-sky-50">
                                         <li class="py-3 px-2">
                                             <Link title="Sub tasks" :href="'tasks/'+task.id" class="hover:text-sky-700">
-                                                View Sub-Tasks
+                                                View user tasks
                                             </Link>
                                         </li>
                                         <li class="py-3 px-2" v-if="task.status.name!=='Complete'">

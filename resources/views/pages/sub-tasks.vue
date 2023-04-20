@@ -18,8 +18,9 @@
 
 
         <div class="my-10 px-10">
-            <div class="my-5 text-lg font-bold">
-                <h1>Main task: <span class="text-sky-700">{{task.data.name}}</span></h1>
+            <div class="my-5 flex justify-between">
+                <h1>Main task: <span class="text-sky-700 text-lg font-bold">{{task.data.name}}</span></h1>
+                <Link href="/" class="hover:text-sky-600"><span class="mr-2"><i class="fal fa-arrow-to-left"></i></span>Return to all tasks</Link>
             </div>
             <div class="rounded-xl bg-gray-100 py-3 px-3">
                 <input v-model="search" type="search" placeholder="Search team members..." class="bg-transparent text-gray-700
@@ -80,7 +81,7 @@
                             </th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="[&>*:nth-child(even)]:bg-gray-100">
                         <tr :key="activity.id" v-for="activity in sub_tasks.data" class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
@@ -117,9 +118,9 @@
                                         <ul class="divide-y bg-sky-50">
 
                                             <li class="py-3 px-2" v-if="activity.status.name!=='Complete'">
-                                                <button  class="hover:text-sky-700">Mark as Complete</button>
+                                                <sub-task-complete :sub_task="activity"></sub-task-complete>
                                             </li>
-                                            <li class="py-3 px-2" v-if="activity.status.name!=='Cancelled'">
+                                            <li class="py-3 px-2" v-if="activity.status.name!=='Cancelled' && activity.status.name!=='Complete'">
                                                 <Link as="button" method="patch" :href="'/sub_tasks/cancel/'+activity.id" class="hover:text-sky-700">Cancel task</Link>
                                             </li>
                                             <li class="py-3 px-2">
@@ -169,6 +170,7 @@ import {debounce} from 'lodash';
 import moment from "moment";
 import AssignMember from "@/views/components/assign-member.vue";
 import TaskDetails from "@/views/components/task-details.vue";
+import SubTaskComplete from "@/views/components/sub-task-complete.vue";
 
 
 let props=defineProps({
