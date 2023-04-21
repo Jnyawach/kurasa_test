@@ -9,6 +9,7 @@ use App\Models\Status;
 use App\Models\Task;
 use App\Models\UserTask;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -75,15 +76,16 @@ class ManageTaskController extends Controller
 
         $task=new TaskResource(Task::findOrFail($id));
         $sub_tasks=UserTaskResource::collection(UserTask::query()
-
+            ->where('task_id',$id)
             ->when(request('status'), function ($query, $status){
+
                 $query->where('status_id', $status);
             })
-            ->with(['user'=>function($query) use($search){
-                $query->where('name', 'like', "%{$search}%");
-            }])
-            ->where('task_id',$id)->paginate(request('showing')));
-        $filters=request()->only(['search','showing','status','due_date']);
+
+            ->with('user')
+            ->paginate(request('showing')));
+
+        $filters=request()->only(['showing','status','due_date']);
         $statuses=Status::select('name','id')->get();
         return inertia::render('sub-tasks', compact('task', 'sub_tasks','statuses','filters'));
     }

@@ -22,11 +22,7 @@
                 <h1>Main task: <span class="text-sky-700 text-lg font-bold">{{task.data.name}}</span></h1>
                 <Link href="/" class="hover:text-sky-600"><span class="mr-2"><i class="fal fa-arrow-to-left"></i></span>Return to all tasks</Link>
             </div>
-            <div class="rounded-xl bg-gray-100 py-3 px-3">
-                <input v-model="search" type="search" placeholder="Search team members..." class="bg-transparent text-gray-700
-               self-center placeholder-gray-500 w-full focus:border-0 focus:outline-0 focus:ring-0 self-center">
 
-            </div>
             <div class="my-8 flex justify-between px-3">
                 <div class="flex gap-3">
                     <!--top filter-->
@@ -81,10 +77,9 @@
                             </th>
                         </tr>
                         </thead>
-                        <tbody class="[&>*:nth-child(even)]:bg-gray-100">
+                        <tbody class="[&>*:nth-child(even)]:bg-gray-100" v-if="sub_tasks.data.length">
                         <tr :key="activity.id" v-for="activity in sub_tasks.data" class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
                                 {{activity.user.name}}
                             </th>
 
@@ -183,14 +178,12 @@ let props=defineProps({
 const user = computed(() => usePage().props.auth)
 const assignModal=ref(false)
 const showing=ref<Number>(props.filters.showing?props.filters.showing:10)
-const search=ref(props.filters.search?props.filters.search:'')
 const status=ref(props.filters.status?props.filters.status:null)
 
 
 
-watch([search, showing, status], debounce(function (value:any) {
+watch([ showing, status], debounce(function (value:any) {
     router.get('/tasks/'+props.task.data.id,{
-        search:search.value,
         showing:showing.value,
         status:status.value
     }, {preserveState:true, replace:true});
