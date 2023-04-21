@@ -22,6 +22,7 @@ class TaskFactory extends Factory
             'name'=>fake()->sentence(6 ),
             'status_id'=>fake()->numberBetween(1,4),
             'description'=>fake()->sentence(20),
+            'due_date'=>Carbon::now()->addHours(72);
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ];
