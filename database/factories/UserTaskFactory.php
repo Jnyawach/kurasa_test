@@ -2,13 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\Task;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Task>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserTask>
  */
-class TaskFactory extends Factory
+class UserTaskFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,11 +21,15 @@ class TaskFactory extends Factory
     {
         return [
             //
-            'name'=>fake()->sentence(6 ),
+            'due_date'=>Carbon::now()->addHours(180),
+            'start_time'=>Carbon::now(),
+            'user_id'=>fake()->numberBetween(1,3),
+            'task_id'=>fake()->numberBetween(1,30),
             'status_id'=>fake()->numberBetween(1,4),
-            'description'=>fake()->sentence(20),
-            'created_at'=>Carbon::now(),
-            'updated_at'=>Carbon::now()
+
+
         ];
     }
+
+
 }
