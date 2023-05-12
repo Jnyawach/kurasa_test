@@ -9,13 +9,13 @@
             leave-to-class="opacity-0 scale-125"
         >
             <div @click.self="$emit('close')" v-if="show" class="inset-0 fixed bg-black bg-opacity-70 z-[10000] grid place-items-center p-5" >
-                <div class="bg-white lg:w-4/6 w-full rounded-xl">
+                <div class="bg-white lg:w-1/2 w-full rounded-xl">
                     <header class="p-3">
                         <div class="flex justify-between">
 
                             <slot name="header">
                                 <div class="font-bold text-black-100 text-lg">
-                                    <h6>Create a new Task</h6>
+                                    <h6>Create a Supermarket</h6>
                                 </div>
                             </slot>
                             <div>
@@ -32,51 +32,34 @@
 
                     <div class="p-5 ">
                       <form @submit.prevent="submit">
-                          <div class="grid my-3 grid-cols-6 gap-2">
-                              <div class="col-span-4">
-                                  <label class="creative-label" for="task_name">Task name:</label>
-                                  <input type="text" class="creative-input" id="task_name" v-model="form.name">
-                                  <div v-if="form.errors.name" class="creative-error">
-                                      <span>{{ form.errors.name}}</span>
-                                  </div>
-                              </div>
-                              <div class="col-span-2">
-                                  <label class="creative-label" for="due_date">Due date:</label>
-                                  <input type="date" class="creative-input" id="due_date" v-model="form.due_date">
-                                  <div v-if="form.errors.due_date" class="creative-error">
-                                      <span>{{ form.errors.due_date}}</span>
-                                  </div>
-                              </div>
-
-                          </div>
                           <div class="grid my-3">
-                              <label class="creative-label" for="task_description">Task description:</label>
-                              <textarea class="creative-text-input" id="task_description" rows="5" v-model="form.description"></textarea>
-                              <div v-if="form.errors.description" class="creative-error">
-                                  <span>{{ form.errors.description}}</span>
+                              <label class="creative-label" for="task_name">Name:</label>
+                              <input type="text" class="creative-input" id="task_name" v-model="form.name">
+                              <div v-if="form.errors.name" class="creative-error">
+                                  <span>{{ form.errors.name}}</span>
                               </div>
-                          </div>
-                          <div class=" my-3">
-                              <label class="flex place-content-center gap-2 justify-start">
-                                  <input class="self-center" type="checkbox" v-model="form.assign">
-                                 <span class="self-center"> Assign this task to team member</span>
-                              </label>
                           </div>
 
-                          <div class="grid grid-cols-2 my-3" v-if="form.assign">
-                              <div>
-                                  <label class="creative-label" for="team_member">Select team member:</label>
-                                  <select id="team_member" class="creative-input" v-model="form.team_member">
-                                     <option :value="null">Team members</option>
-                                      <option :value="member.id" :key="member.id" v-for="member in members" class="capitalize">{{member.name}} <span class="text-sky-700" v-if="member.id===$page.props.auth.id">(me)</span></option>
-                                  </select>
-                                  <div v-if="form.errors.team_member" class="creative-error">
-                                      <span>{{ form.errors.team_member}}</span>
+                          <div class="grid my-3 grid-cols-2 gap-2">
+                              <div >
+                                  <label class="creative-label" for="town">Town/city:</label>
+                                  <input type="text" class="creative-input" id="town" v-model="form.town">
+                                  <div v-if="form.errors.town" class="creative-error">
+                                      <span>{{ form.errors.town}}</span>
                                   </div>
                               </div>
+                              <div >
+                                  <label class="creative-label" for="country">Country:</label>
+                                  <input type="text" class="creative-input" id="country" v-model="form.country">
+                                  <div v-if="form.errors.country" class="creative-error">
+                                      <span>{{ form.errors.country}}</span>
+                                  </div>
+                              </div>
+
                           </div>
+
                           <div class="my-3 flex justify-end">
-                              <button type="submit" class="btn-primary">Save task</button>
+                              <button type="submit" class="btn-primary">Save supermarket</button>
                           </div>
                       </form>
                     </div>
@@ -100,34 +83,18 @@ let props=defineProps({
 
 let form=useForm({
     name:'',
-    description:'',
-    due_date:'',
-    team_member:null,
-    assign:false
-
+    town:'',
+    country:''
 })
 
-//Get team members
-const members=ref()
-
-onMounted(()=>{
-    axios
-        .get('api/get/members')
-        .then((response: { data: never[]; }) => {
-            members.value = response.data;
-        })
-        .catch((error: any) => console.log(error))
-})
-
-//submit task
 const submit=()=>{
-    form.post('tasks',{
-        onSuccess:()=>{
-            form.reset()
-            emits('close')
-        }
-    })
+
 }
+
+
+
+
+
 </script>
 
 <style scoped>

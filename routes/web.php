@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\ManageTaskController;
 use App\Http\Controllers\SubTaskController;
+use App\Http\Controllers\SupermarketController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,15 +21,8 @@ use Inertia\Inertia;
 */
 
 Route::group(['middleware'=>['auth']], function (){
-    Route::patch('sub_tasks/trash/{id}',[SubTaskController::class,'trashTask']);
-    Route::patch('sub_tasks/complete/{id}',[SubTaskController::class,'completeTask']);
-    Route::patch('sub_tasks/cancel/{id}',[SubTaskController::class,'cancelTask']);
-    Route::resource('sub_tasks',SubTaskController::class);
-    Route::resource('/', TaskController::class);
-    Route::patch('tasks/trash/{id}',[ManageTaskController::class,'trashTask']);
-    Route::patch('tasks/complete/{id}',[ManageTaskController::class,'completeTask']);
-    Route::patch('tasks/cancel/{id}',[ManageTaskController::class,'cancelTask']);
-    Route::resource('tasks',ManageTaskController::class);
+    Route::post('supermarket/save',[SupermarketController::class, 'save']);
+    Route::resource('/', MainController::class);
     Route::post('user/logout',[AuthController::class, 'destroy'])->name('logout');
 });
 

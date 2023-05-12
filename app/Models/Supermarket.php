@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Supermarket extends Model
+{
+    use HasFactory;
+
+    protected $fillable=['name','town','country'];
+
+    public function managers(){
+        return $this->hasMany(Manager::class);
+    }
+
+    public function suppliers(){
+        return $this->hasMany(Supplier::class);
+    }
+}
