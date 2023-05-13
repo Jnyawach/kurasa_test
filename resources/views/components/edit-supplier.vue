@@ -105,7 +105,7 @@ let form=useForm({
 
 const submit=()=>{
 
-    form.patch('/manager/'+props.manager.id,{
+    form.patch('/supplier/'+props.supplier.id,{
 
         onSuccess:()=>{
             show.value=false

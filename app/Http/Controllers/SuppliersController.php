@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class SuppliersController extends Controller
@@ -52,6 +53,18 @@ class SuppliersController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $validated=$request->validate([
+            'name'=>'required|string|max:50',
+            'phone'=>'required|string|max:25',
+            'town'=>'required|string|max:50',
+            'country'=>'required|string|max:50',
+
+        ]);
+
+        $supplier=Supplier::findOrFail($id);
+        $supplier->update($validated);
+        return redirect()->back()
+            ->with('status','Supplier  updated successfully');
     }
 
     /**
@@ -60,5 +73,8 @@ class SuppliersController extends Controller
     public function destroy(string $id)
     {
         //
+        $supplier=Supplier::findOrFail($id)->delete();
+        return redirect()->back()
+            ->with('status','Supplier deleted successfully');
     }
 }

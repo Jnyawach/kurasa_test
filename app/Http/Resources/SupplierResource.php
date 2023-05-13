@@ -19,6 +19,7 @@ class SupplierResource extends JsonResource
             'id'=>$this->id,
             'town'=>$this->town,
             'country'=>$this->country,
+            'phone'=>$this->phone,
             'supermarket_id'=>$this->supermarket_id,
             'supermarket'=>new SupermarketResource($this->whenLoaded('supermarket'))
         ];
