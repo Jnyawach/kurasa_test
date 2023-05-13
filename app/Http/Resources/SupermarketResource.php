@@ -20,7 +20,7 @@ class SupermarketResource extends JsonResource
             'town'=>$this->town,
             'country'=>$this->country,
             'managers'=>ManagerResource::collection($this->whenLoaded('managers')),
-            'supplier'=>SupplierResource::collection($this->whenLoaded('suppliers')),
+            'suppliers'=>SupplierResource::collection($this->whenLoaded('suppliers')),
             'managers_count'=>$this->managers->count(),
             'suppliers_count'=>$this->suppliers->count()
         ];

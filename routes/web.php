@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ManageTaskController;
 use App\Http\Controllers\SubTaskController;
 use App\Http\Controllers\SupermarketController;
+use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,7 +23,10 @@ use Inertia\Inertia;
 */
 
 Route::group(['middleware'=>['auth']], function (){
-    Route::post('supermarket/save',[SupermarketController::class, 'save']);
+    Route::resource('/supplier',SuppliersController::class);
+    Route::resource('/manager',ManagerController::class);
+    Route::get('/supermarket/suppliers/{id}',[SupermarketController::class,'suppliers']);
+    Route::resource('/supermarket',SupermarketController::class);
     Route::resource('/', MainController::class);
     Route::post('user/logout',[AuthController::class, 'destroy'])->name('logout');
 });

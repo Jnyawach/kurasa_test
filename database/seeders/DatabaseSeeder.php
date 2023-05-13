@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
                     'supermarket_id'=>$market->id
 
                 ]);
-                for ($x = 0; $x <= 10; $x++) {
+                for ($x = 0; $x <= 5; $x++) {
                     $employees=Employee::create([
                       'name'=>fake()->unique()->name(),
                         'gender'=>fake()->randomElement(['Male','Female']),
@@ -84,7 +84,7 @@ class DatabaseSeeder extends Seeder
 
             }
 
-            for ($x = 0; $x <= 10; $x++) {
+            for ($x = 0; $x <= 5; $x++) {
                 Supplier::create([
                     'name'=>fake()->company(),
                     'phone'=>fake()->phoneNumber(),

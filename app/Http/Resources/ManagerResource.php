@@ -17,6 +17,7 @@ class ManagerResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
+            'email'=>$this->email,
             'phone'=>$this->phone,
             'supermarket_id'=>$this->supermarket_id,
             'supermarket'=>new SupermarketResource($this->whenLoaded('supermarket')),

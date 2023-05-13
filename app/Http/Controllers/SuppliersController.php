@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\SupermarketResource;
-use App\Models\Supermarket;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
-class MainController extends Controller
+class SuppliersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +12,6 @@ class MainController extends Controller
     public function index()
     {
         //
-        $supermarkets=SupermarketResource::collection(Supermarket::query()->orderBy('name')
-            ->when(request('search'),function ($q, $search){
-
-                $q->where('name','like', '%'.$search.'%');
-            })
-        ->get());
-        $filter=request('search');
-        return inertia::render('welcome',compact('supermarkets','filter'));
     }
 
     /**

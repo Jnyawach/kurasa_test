@@ -15,7 +15,7 @@
 
                             <slot name="header">
                                 <div class="font-bold text-black-100 text-lg">
-                                    <h6>Create a Supermarket</h6>
+                                    <h6>Add a new Manager to {{supermarket.name}}</h6>
                                 </div>
                             </slot>
                             <div>
@@ -31,37 +31,37 @@
                     </header>
 
                     <div class="p-5 ">
-                      <form @submit.prevent="submit">
-                          <div class="grid my-3">
-                              <label class="creative-label" for="task_name">Name:</label>
-                              <input type="text" class="creative-input" id="task_name" v-model="form.name" required>
-                              <div v-if="form.errors.name" class="creative-error">
-                                  <span>{{ form.errors.name}}</span>
-                              </div>
-                          </div>
+                        <form @submit.prevent="submit">
+                            <div class="grid my-3">
+                                <label class="creative-label" for="task_name">Name:</label>
+                                <input type="text" class="creative-input" id="task_name" v-model="form.name" required>
+                                <div v-if="form.errors.name" class="creative-error">
+                                    <span>{{ form.errors.name}}</span>
+                                </div>
+                            </div>
 
-                          <div class="grid my-3 grid-cols-2 gap-2">
-                              <div >
-                                  <label class="creative-label" for="town">Town/city:</label>
-                                  <input type="text" class="creative-input" id="town" v-model="form.town" required>
-                                  <div v-if="form.errors.town" class="creative-error">
-                                      <span>{{ form.errors.town}}</span>
-                                  </div>
-                              </div>
-                              <div >
-                                  <label class="creative-label" for="country">Country:</label>
-                                  <input type="text" class="creative-input" id="country" v-model="form.country" required>
-                                  <div v-if="form.errors.country" class="creative-error">
-                                      <span>{{ form.errors.country}}</span>
-                                  </div>
-                              </div>
+                            <div class="grid my-3 grid-cols-2 gap-2">
+                                <div >
+                                    <label class="creative-label" for="town">Cellphone:</label>
+                                    <input type="text" class="creative-input" id="town" v-model="form.phone" required>
+                                    <div v-if="form.errors.phone" class="creative-error">
+                                        <span>{{ form.errors.phone}}</span>
+                                    </div>
+                                </div>
+                                <div >
+                                    <label class="creative-label" for="country">Email:</label>
+                                    <input type="text" class="creative-input" id="country" v-model="form.email" required>
+                                    <div v-if="form.errors.email" class="creative-error">
+                                        <span>{{ form.errors.email}}</span>
+                                    </div>
+                                </div>
 
-                          </div>
+                            </div>
 
-                          <div class="my-3 flex justify-end">
-                              <button type="submit" class="btn-primary">Save supermarket</button>
-                          </div>
-                      </form>
+                            <div class="my-3 flex justify-end">
+                                <button type="submit" class="btn-primary">Save manager</button>
+                            </div>
+                        </form>
                     </div>
 
 
@@ -79,21 +79,23 @@ const emits=defineEmits(['close'])
 emits("close")
 let props=defineProps({
     show:Boolean,
+    supermarket:Object
 })
 
 let form=useForm({
     name:'',
-    town:'',
-    country:''
+    phone:'',
+    email:'',
+    supermarket_id:props.supermarket.id
 })
 
 const submit=()=>{
-   form.post('/supermarket',{
-       onSuccess:()=>{
-           emits('close')
-           form.reset()
-       }
-   })
+    form.post('/manager',{
+        onSuccess:()=>{
+            emits('close')
+            form.reset()
+        }
+    })
 }
 
 
