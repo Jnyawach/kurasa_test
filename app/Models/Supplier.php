@@ -9,7 +9,7 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name','town','country', 'supermarket_id'];
+    protected $fillable=['name','town','country', 'supermarket_id','phone'];
 
     public function  supermarket(){
         return $this->belongsTo(Supermarket::class);

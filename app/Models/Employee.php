@@ -12,7 +12,7 @@ class Employee extends Model
     protected $fillable=['name','type','gender','manager_id'];
 
     public function manager(){
-        $this->belongsTo(Manager::class);
+        return $this->belongsTo(Manager::class);
     }
 
 }

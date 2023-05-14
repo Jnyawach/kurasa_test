@@ -1,20 +1,34 @@
 <template>
     <main-layout>
+        <template #breadcrumb>
+            <ul class="my-2 flex divide-x divide-sky-600">
+                <li class="px-2">
+                    <Link title="home" href="/" class="hover:text-sky-600">Supermarkets</Link>
+                </li>
+                <li class="px-2">
+                    <Link title="home" href="#" class="hover:text-sky-600">{{supermarket.data.name}}</Link>
+                </li>
+                <li class="px-2">
+                    <Link title="home" href="#" class="hover:text-sky-600">Suppliers</Link>
+                </li>
+            </ul>
+        </template>
         <div>
-            <div>
-                <ul class="flex gap-3 my-3 ">
-                    <li>
-                        <Link :href="'/supermarket/'+supermarket.data.id" class="hover:text-sky-600">Managers</Link>
-                    </li>
-                    <li>
-                        <Link :href="'/supermarket/suppliers/'+supermarket.data.id" class="hover:text-sky-600 text-sky-600">Suppliers</Link>
-                    </li>
-                </ul>
-            </div>
+
             <div class="bg-white shadow rounded-xl">
                 <div class="flex justify-between p-3 py-5">
                     <div>
                         <h2 class="text-lg font-bold">{{supermarket.data.name}}</h2>
+                        <div>
+                            <ul class="flex gap-3 my-3 ">
+                                <li>
+                                    <Link :href="'/supermarket/'+supermarket.data.id" class="hover:text-sky-600">Managers</Link>
+                                </li>
+                                <li>
+                                    <Link :href="'/supermarket/suppliers/'+supermarket.data.id" class="hover:text-sky-600 text-sky-600">Suppliers</Link>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="flex gap-1">
                         <div>
@@ -111,7 +125,8 @@
 
         </div>
         <!--new manager modal-->
-        <new-manager :show="newSupplier" @close="newSupplier=false" :supermarket="supermarket.data"></new-manager>
+        <new-supplier :show="newSupplier" @close="newSupplier=false" :supermarket="supermarket.data"></new-supplier>
+
     </main-layout>
 </template>
 
@@ -120,9 +135,9 @@
 import MainLayout from "@/views/layouts/main-layout.vue";
 import {Link} from "@inertiajs/vue3";
 import {ref} from "vue";
-import NewManager from "@/views/components/new-manager.vue";
 import EditSupplier from "@/views/components/edit-supplier.vue";
 import {useStorage} from "@vueuse/core";
+import NewSupplier from "@/views/components/new-supplier.vue";
 defineProps({
     supermarket:Object
 })

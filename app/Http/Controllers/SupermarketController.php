@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ManagerResource;
 use App\Http\Resources\SupermarketResource;
+use App\Models\Manager;
 use App\Models\Supermarket;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -102,5 +104,11 @@ class SupermarketController extends Controller
     public function suppliers($id){
         $supermarket=new SupermarketResource(Supermarket::with(['suppliers'])->findOrFail($id));
         return inertia::render('supermarket/suppliers', compact('supermarket'));
+    }
+
+    public function managers($super, $id){
+     $supermarket=Supermarket::findOrFail($super);
+     $manager=new ManagerResource(Manager::with('employees')->findOrFail($id));
+     return inertia::render('supermarket/manager', compact('supermarket','manager'));
     }
 }

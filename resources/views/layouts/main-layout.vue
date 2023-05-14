@@ -19,25 +19,12 @@
         </div>
 
         <div class="my-10 px-10">
+            <div>
+                <slot name="breadcrumb"></slot>
+            </div>
 
+            <div class="flex">
 
-            <div class="flex gap-2">
-                <div class="w-56">
-                    <ul class="sticky top-0 space-y-5">
-                        <li>
-                            <Link href="/" title="supermarkets">Supermarkets</Link>
-                        </li>
-                        <li>
-                            <Link href="#" title="supermarkets">Managers</Link>
-                        </li>
-                        <li>
-                            <Link href="#" title="supermarkets">Employees</Link>
-                        </li>
-                        <li>
-                            <Link href="#" title="supermarkets">Suppliers</Link>
-                        </li>
-                    </ul>
-                </div>
                 <div class=" w-full">
                     <slot/>
                 </div>
