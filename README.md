@@ -1,4 +1,4 @@
-# Task Test
+# Kurasa Developer Test
 ***
 ### Installation Guide
 Navigate into your local folder and follow the guide below to set up the project on localhost
