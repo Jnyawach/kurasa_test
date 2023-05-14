@@ -2,7 +2,7 @@
 ***
 ### Installation Guide
 Navigate into your local folder and follow the guide below to set up the project on localhost
-1. ```git clone git@github.com:Jnyawach/task_test.git``` 
+1. ```https://github.com/Jnyawach/kurasa_test.git``` 
 2. ```composer install```
 3. ```npm install```
 4. ```cd  [project folder]```
@@ -10,5 +10,7 @@ Navigate into your local folder and follow the guide below to set up the project
 6. ```php artisan key:generate```
 7. Set up the database connection then run ```php artisan migrate```
 8. Run ```php artisan db:seed```
-9. ```php artisan serve```
-10. ```npm run dev```
+9. Use the credentials below to login:
+10. email: test@example.com pass:12345678
+11. ```php artisan serve```
+12. ```npm run dev```
